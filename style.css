@@ -74,6 +74,10 @@ body {
   border-bottom: 1px solid #e2e1cf;
 }
 
+.list__item:hover {
+  cursor: pointer;
+}
+
 .list__remove-item-btn {
   position: absolute;
   right: 12px;
