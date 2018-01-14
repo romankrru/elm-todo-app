@@ -23,6 +23,7 @@ model =
   }
 
 -- UPDATE
+
 type Msg
   = UpdateTodo String
   | AddTodo
@@ -67,9 +68,15 @@ stylesheet =
 
 todoItem : String -> Html Msg
 todoItem todo =
-  li []
+  li
+    [ class "list__item"
+    ]
     [ text todo
-    , button [ onClick (RemoveItem todo) ] [ text "x" ]
+    , button 
+      [ onClick (RemoveItem todo)
+      , class "list__remove-item-btn"
+      ]
+      [ text "×" ]
     ]
 
 todoList : List String -> Html Msg
@@ -78,18 +85,28 @@ todoList todos =
     child = 
       List.map todoItem todos
   in
-    ul [] child
+    ul [ class "list" ] child
 
 view model = 
-  div []
+  div
+  [ class "container"
+  ]
   [ stylesheet
-  , input 
-      [ type_ "text" 
-      , onInput UpdateTodo
-      , value model.todo
+  , h1
+      [ class "app-name" ]
+      [ text "Elm Todo App" ]
+  , div
+      [ class "add-controls" ]
+      [ input
+          [ type_ "text"
+          , placeholder "Type here..."
+          , class "input add-controls__input"
+          , onInput UpdateTodo
+          , value model.todo
+          ]
+          []
+      , button [ onClick AddTodo, class "button add-controls__button" ] [ text "Add" ]
+      , button [ onClick RemoveAll, class "button add-controls__button" ] [ text "Remove All" ]  
       ]
-      []
-  , button [ onClick AddTodo ] [ text "Submit" ]
-  , button [ onClick RemoveAll ] [ text "Remove All" ]
   , div [] [ todoList model.todos ]
   ]

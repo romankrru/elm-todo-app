@@ -1,4 +1,93 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300i,400');
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
+
+  font-family: 'Roboto Condensed';
+  color: #55556b;
+  font-size: 22px;
+
+  background-color: #e6e5d8;
+}
+
+.container {
+  max-width: 680px;
+  padding: 10px;
+  margin: 20px auto;
+
+  box-shadow: 0 5px 6px rgba(0, 0, 0, .15);
+  background-color: #f5f4e9;
+}
+
+.app-name {
+  margin-top: 0;
+
+  font-size: 48px;
+  font-weight: 300;
+}
+
+.input,
+.button {
+  padding: 10px 12px;
+
+  font: inherit;
+  color: inherit;
+
+  border: none;
+  outline: none;
+  background-color:  #dbdac8;
+}
+
+.button {
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.button:hover {
+  color:  #dbdac8;
+  
+  background-color: #55556b;
+}
+
+.add-controls__button {
+  margin-left: 10px;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.list__item {
+  position: relative;
+
+  margin: 10px 0;
+  padding: 10px 12px;
+
+  border-bottom: 1px solid #e2e1cf;
+}
+
+.list__remove-item-btn {
+  position: absolute;
+  right: 12px;
+  top: 18px;
+
+  width: 20px;
+  height: 20px;
+
+  font-weight: bold;
+  color: inherit;
+
+  background-color: #dbdac8;
+  border: none;
+  outline: none;
+
+  cursor: pointer;
 }
