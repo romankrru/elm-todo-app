@@ -37,10 +37,13 @@ update msg model =
       { model | todo = text }
     
     AddTodo ->
-      { model
-      | todos = model.todo :: model.todos
-      , todo = ""
-      }
+      if String.length model.todo > 0 then
+        { model
+        | todos = model.todo :: model.todos
+        , todo = ""
+        }
+      else
+        model
 
     RemoveAll ->
       { model | todos = [] }
