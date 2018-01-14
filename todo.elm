@@ -11,15 +11,23 @@ main =
 
 -- MODEL
 
+type alias Todo =
+  { text : String
+  , identifier : Int
+  }
+
+
 type alias Model =
   { todo : String
-  , todos : List String
+  , todos : List Todo
+  , globalId : Int
   }
 
 model : Model
 model =
   { todo = ""
   , todos = []
+  , globalId = 0
   }
 
 -- UPDATE
@@ -28,7 +36,7 @@ type Msg
   = UpdateTodo String
   | AddTodo
   | RemoveAll
-  | RemoveItem String
+  | RemoveItem Int
 
 update : Msg -> Model -> Model
 update msg model =
@@ -38,18 +46,23 @@ update msg model =
     
     AddTodo ->
       if String.length model.todo > 0 then
-        { model
-        | todos = model.todo :: model.todos
-        , todo = ""
-        }
+        let
+          newTodo : Todo
+          newTodo = { text = model.todo, identifier = model.globalId }
+        in
+          { model
+          | todos = newTodo :: model.todos
+          , todo = ""
+          , globalId = model.globalId + 1
+          }
       else
         model
 
     RemoveAll ->
       { model | todos = [] }
 
-    RemoveItem text ->
-      { model | todos = List.filter (\x -> x /= text) model.todos }
+    RemoveItem identifier ->
+      { model | todos = List.filter (\x -> x.identifier /= identifier) model.todos }
 
 -- VIEW
 
@@ -69,20 +82,20 @@ stylesheet =
   in
     node tag attrs children
 
-todoItem : String -> Html Msg
+todoItem : Todo -> Html Msg
 todoItem todo =
   li
     [ class "list__item"
     ]
-    [ text todo
+    [ text todo.text
     , button 
-      [ onClick (RemoveItem todo)
+      [ onClick (RemoveItem todo.identifier)
       , class "list__remove-item-btn"
       ]
       [ text "×" ]
     ]
 
-todoList : List String -> Html Msg
+todoList : List Todo -> Html Msg
 todoList todos =
   let
     child = 
