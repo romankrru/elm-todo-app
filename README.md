@@ -1,1 +1,1 @@
-[Demo](stingy-move.surge.sh)
+[Demo](http://stingy-move.surge.sh/)
